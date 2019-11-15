@@ -51,11 +51,9 @@ def get_user_list(request):
     return HttpResponse(json_data, content_type='application/json')
 
 def make_suggestion(request):
-    print("\n\n\n\n\n HERE")
     user = get_user(request)
     if(user == -1):
         return HttpResponse("No logged in user")
-    print("\n\n\n\n\n HERE 2")
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     try:
@@ -75,7 +73,7 @@ def make_suggestion(request):
         user.userprofile.suggested_shows.add(suggestion)
         return HttpResponse("Success")
     except Exception as e:
-        return HttpResponse("No user with username " + body['username'] + " " + str(e))
+        return HttpResponse("No user with username " + body['username'])
 
 def get_suggestions(request):
     user = get_user(request)
